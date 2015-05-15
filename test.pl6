@@ -10,7 +10,9 @@ my @proms;
   my $*SEP    = ',';
   my $*QUOTE  = '"';
   my $*ESCAPE = '\\';
-  say Grammar::CSV.parse('a,"a", "\"ask\""').perl;
+  my $ecoli = Grammar::CSV.parse('a,"a", "\"ask\""');
+
+  $ecoli<line>[0]<value>.join("\n").say;
 };
 
 await Promise.allof(@proms);
