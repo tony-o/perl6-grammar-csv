@@ -1,24 +1,26 @@
 use Grammar::Tracer;
 grammar Grammar::CSV {
   token TOP {
-    [ <line> $*EOL? ]+
+    <line> $*EOL?
   }
   token line {
-    ^^
-      <value>+ % $*SEP?
-    $$
+    <value>+ % $*SEP?
+    $*EOL
   }
   token value {
     \s*
     [
-       <quoted>
-      || <-[$*QUOTE]> <-[$*SEP]>*?
+         <quoted>
+      || <unquoted>
     ]
-    \s*
+    \s* 
   }
   token quoted {
     $*QUOTE
     .*?
     <!after $*ESCAPE> $*QUOTE
+  }
+  token unquoted {
+    .*? <before [ $*SEP || $*EOL ]>
   }
 }
