@@ -8,7 +8,10 @@ use CSV::Parser;
 
 my $outcome = 1;
 my $fh      = open 't/data/delimiters.csv', :r;
-my $parser  = CSV::Parser.new( file_handle => $fh , contains_header_row => False , field_separator => "||" , field_operator => "''" );
+my $parser  = CSV::Parser.new(file_handle         => $fh, 
+                              contains_header_row => False, 
+                              field_separator     => "||", 
+                              field_operator      => "''" );
 my $keys    = 0;
 my %line    = %($parser.get_line());
 
